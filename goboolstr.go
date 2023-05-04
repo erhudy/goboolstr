@@ -10,6 +10,14 @@ type BoolOrString struct {
 	rawString string
 }
 
+func True() BoolOrString {
+	return FromBool(true)
+}
+
+func False() BoolOrString {
+	return FromBool(false)
+}
+
 func isTruthy(val string) bool {
 	lc := strings.ToLower(val)
 	return lc == "true" || lc == "yes" || lc == "on" || lc == "1"
