@@ -69,8 +69,8 @@ func TestUnmarshalJSON(t *testing.T) {
 			expectErr:   false,
 			expected: testStruct{
 				Val: BoolOrString{
-					rawBool:   true,
-					rawString: "true",
+					BoolVal: true,
+					StrVal:  "true",
 				},
 			},
 			rawJSON: []byte("{\"val\": \"true\"}"),
@@ -80,8 +80,8 @@ func TestUnmarshalJSON(t *testing.T) {
 			expectErr:   false,
 			expected: testStruct{
 				Val: BoolOrString{
-					rawBool:   true,
-					rawString: "yes",
+					BoolVal: true,
+					StrVal:  "yes",
 				},
 			},
 			rawJSON: []byte("{\"val\": \"yes\"}"),
@@ -91,8 +91,8 @@ func TestUnmarshalJSON(t *testing.T) {
 			expectErr:   false,
 			expected: testStruct{
 				Val: BoolOrString{
-					rawBool:   true,
-					rawString: "on",
+					BoolVal: true,
+					StrVal:  "on",
 				},
 			},
 			rawJSON: []byte("{\"val\": \"on\"}"),
@@ -102,8 +102,8 @@ func TestUnmarshalJSON(t *testing.T) {
 			expectErr:   false,
 			expected: testStruct{
 				Val: BoolOrString{
-					rawBool:   true,
-					rawString: "1",
+					BoolVal: true,
+					StrVal:  "1",
 				},
 			},
 			rawJSON: []byte("{\"val\": \"1\"}"),
@@ -113,8 +113,8 @@ func TestUnmarshalJSON(t *testing.T) {
 			expectErr:   false,
 			expected: testStruct{
 				Val: BoolOrString{
-					rawBool:   true,
-					rawString: "true",
+					BoolVal: true,
+					StrVal:  "true",
 				},
 			},
 			rawJSON: []byte("{\"val\": true}"),
@@ -124,8 +124,8 @@ func TestUnmarshalJSON(t *testing.T) {
 			expectErr:   false,
 			expected: testStruct{
 				Val: BoolOrString{
-					rawBool:   false,
-					rawString: "false",
+					BoolVal: false,
+					StrVal:  "false",
 				},
 			},
 			rawJSON: []byte("{\"val\": \"false\"}"),
@@ -135,8 +135,8 @@ func TestUnmarshalJSON(t *testing.T) {
 			expectErr:   false,
 			expected: testStruct{
 				Val: BoolOrString{
-					rawBool:   false,
-					rawString: "false",
+					BoolVal: false,
+					StrVal:  "false",
 				},
 			},
 			rawJSON: []byte("{\"val\": false}"),

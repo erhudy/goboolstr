@@ -1,14 +1,20 @@
 package goboolstr
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 )
 
+// +protobuf=true
+// +protobuf.options.(gogoproto.goproto_stringer)=false
 type BoolOrString struct {
-	rawBool   bool
-	rawString string
+	Type    Type   `protobuf:"bool,1,opt,name=type,casttype=Type"`
+	BoolVal bool   `protobuf:"bool,2,opt,name=boolVal"`
+	StrVal  string `protobuf:"string,3,opt,name=strVal"`
 }
+
+type Type bool
 
 func True() BoolOrString {
 	return FromBool(true)
@@ -30,12 +36,12 @@ func FromBool(from bool) BoolOrString {
 }
 
 func (b *BoolOrString) AsBool() bool {
-	return b.rawBool
+	return b.BoolVal
 }
 
 func (b *BoolOrString) FromBool(from bool) {
-	b.rawBool = from
-	b.rawString = fmt.Sprintf("%v", from)
+	b.BoolVal = from
+	b.StrVal = fmt.Sprintf("%v", from)
 }
 
 func FromString(from string) BoolOrString {
@@ -45,23 +51,28 @@ func FromString(from string) BoolOrString {
 }
 
 func (b *BoolOrString) AsString() string {
-	return b.rawString
+	return b.StrVal
 }
 
 func (b *BoolOrString) FromString(from string) {
-	b.rawBool = isTruthy(from)
-	b.rawString = from
+	b.BoolVal = isTruthy(from)
+	b.StrVal = from
 }
 
 // will always marshal as a native bool (since the whole purpose
 // of the type is to get a string to become a bool)
 func (b BoolOrString) MarshalJSON() ([]byte, error) {
-	return []byte(fmt.Sprintf("%v", b.rawBool)), nil
+	return []byte(fmt.Sprintf("%v", b.BoolVal)), nil
 }
 
 func (b *BoolOrString) UnmarshalJSON(in []byte) error {
 	trimmed := strings.Trim(string(in), "\"")
-	b.rawBool = isTruthy(trimmed)
-	b.rawString = trimmed
+	b.BoolVal = isTruthy(trimmed)
+	b.StrVal = trimmed
 	return nil
+}
+
+func (b BoolOrString) String() string {
+	enc, _ := json.Marshal(b)
+	return string(enc)
 }
