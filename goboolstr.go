@@ -21,6 +21,10 @@ func FromBool(from bool) BoolOrString {
 	return b
 }
 
+func (b *BoolOrString) AsBool() bool {
+	return b.rawBool
+}
+
 func (b *BoolOrString) FromBool(from bool) {
 	b.rawBool = from
 	b.rawString = fmt.Sprintf("%v", from)
@@ -30,6 +34,10 @@ func FromString(from string) BoolOrString {
 	b := BoolOrString{}
 	b.FromString(from)
 	return b
+}
+
+func (b *BoolOrString) AsString() string {
+	return b.rawString
 }
 
 func (b *BoolOrString) FromString(from string) {
